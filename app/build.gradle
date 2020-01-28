@@ -40,7 +40,7 @@ android {
 }
 
 def lifecycle_version = "2.2.0"
-def koin_version="2.0.0"
+def koin_version="2.0.1"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -91,8 +91,9 @@ dependencies {
     implementation "com.xwray:groupie-databinding:2.7.0"
 
     //Koin
-    implementation "org.koin:koin-core:$koin_version"
-    testImplementation "org.koin:koin-test:$koin_version"
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation "org.koin:koin-androidx-ext:$koin_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
