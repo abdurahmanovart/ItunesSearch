@@ -1,12 +1,13 @@
-package ai.arturxdroid.itunessearch
+package ai.arturxdroid.itunessearch.ui.track
 
+import ai.arturxdroid.itunessearch.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class MainActivity : AppCompatActivity() {
+class TrackActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_track)
     }
 }
