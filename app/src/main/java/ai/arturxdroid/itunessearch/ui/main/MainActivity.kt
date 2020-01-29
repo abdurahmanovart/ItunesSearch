@@ -1,8 +1,12 @@
 package ai.arturxdroid.itunessearch.ui.main
 
+
 import ai.arturxdroid.itunessearch.R
 import ai.arturxdroid.itunessearch.binding.TrackItem
 import ai.arturxdroid.itunessearch.databinding.MainActivityBinding
+import ai.arturxdroid.itunessearch.ui.track.TRACK_EXTRA
+import ai.arturxdroid.itunessearch.ui.track.TrackActivity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +17,8 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
 
+class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +35,25 @@ class MainActivity : AppCompatActivity() {
     private fun initUI() {
         search_view.setOnQueryTextListener(viewModel)
 
+        initRecycler()
+
+        initErrorViews()
+    }
+
+    private fun initErrorViews() {
+        viewModel.internet_error_visible.observe(this, Observer {
+            if (it == true) {
+                showSnackbar(R.string.internet_error)
+            }
+        })
+        viewModel.error_visible.observe(this, Observer {
+            if (it == true) {
+                showSnackbar(R.string.short_query_error)
+            }
+        })
+    }
+
+    private fun initRecycler() {
         val adapter = GroupAdapter<GroupieViewHolder>()
         tracks_recycler_view.adapter = adapter
 
@@ -42,23 +65,19 @@ class MainActivity : AppCompatActivity() {
             adapter.addAll(trackList)
         })
 
-        viewModel.internet_error_visible.observe(this, Observer {
-            if (it == true) {
-                Snackbar.make(
-                    main_constraint_layout,
-                    R.string.internet_error,
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            }
-        })
-        viewModel.error_visible.observe(this, Observer {
-            if (it == true) {
-                Snackbar.make(
-                    main_constraint_layout,
-                    R.string.short_query_error,
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
-        })
+        adapter.setOnItemClickListener { item, view ->
+            val intent = Intent(this, TrackActivity::class.java)
+            item as TrackItem
+            intent.putExtra(TRACK_EXTRA, item.track)
+            startActivity(intent)
+        }
+    }
+
+    private fun showSnackbar(res: Int) {
+        Snackbar.make(
+            main_constraint_layout,
+            res,
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 }
