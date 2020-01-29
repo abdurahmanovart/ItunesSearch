@@ -13,6 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:id="@+id/main_constraint_layout"
         android:layout_height="match_parent"
         tools:context=".ui.main.MainActivity">
 
@@ -41,6 +42,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tracks_recycler_view"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

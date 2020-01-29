@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ItunesSearch</string>
+    <string name="internet_error">Internet error, check your connection</string>
+    <string name="short_query_error">Search query must be at least 5 characters long</string>
 </resources>
