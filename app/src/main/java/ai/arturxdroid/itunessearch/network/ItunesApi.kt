@@ -8,6 +8,6 @@ import retrofit2.http.Query
 interface ItunesApi {
 
     @GET("search")
-    fun getTracks(@Query("term") keyword: String?): Observable<TrackResponse?>?
+    fun getTracks(@Query("term") keyword: String?): Observable<TrackResponse>
 
 }
