@@ -1,7 +1,7 @@
 package ai.arturxdroid.itunessearch.ui.main
 
 import ai.arturxdroid.itunessearch.data.Track
-import ai.arturxdroid.itunessearch.network.RetrofitService
+import ai.arturxdroid.itunessearch.network.ItunesApiService
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.appcompat.widget.SearchView
@@ -11,30 +11,30 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel : ViewModel(), SearchView.OnQueryTextListener {
+class MainViewModel(val api:ItunesApiService) : ViewModel(), SearchView.OnQueryTextListener {
 
     private val _trackList = MutableLiveData<List<Track>>()
     val trackList: LiveData<List<Track>> = _trackList
 
-    private val _error_visible = MutableLiveData<Boolean>(false)
-    val error_visible: LiveData<Boolean> = _error_visible
+    private val _errorVisible = MutableLiveData<Boolean>(false)
+    val errorVisible: LiveData<Boolean> = _errorVisible
 
-    private val _internet_error_visible = MutableLiveData<Boolean>(false)
-    val internet_error_visible: LiveData<Boolean> = _internet_error_visible
+    private val _internetErrorVisible = MutableLiveData<Boolean>(false)
+    val internetErrorVisible: LiveData<Boolean> = _internetErrorVisible
 
-    private val itunesApi = RetrofitService.getRetrofit()
+    private val apiService = api.getApi()
 
     @SuppressLint("CheckResult")
     fun fetchTracks(query: String) {
-        itunesApi.getTracks(query).observeOn(AndroidSchedulers.mainThread())
+        apiService.getTracks(query).observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                _internet_error_visible.value = false
+                _internetErrorVisible.value = false
                 _trackList.value = it.results
             },
                 {
                     Log.e("ERART", it.toString())
-                    _internet_error_visible.value = true
+                    _internetErrorVisible.value = true
                 }
             )
     }
@@ -44,7 +44,7 @@ class MainViewModel : ViewModel(), SearchView.OnQueryTextListener {
             fetchTracks(query)
             true
         } else {
-            _error_visible.value = true
+            _errorVisible.value = true
             false
         }
     }

@@ -5,13 +5,17 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitService {
+interface ItunesApiService {
+    fun getApi(): ItunesApi
+}
+
+class ItunesApiServiceImpl:ItunesApiService {
 
     private val BASE_URL = "https://itunes.apple.com/"
 
     private lateinit var itunesApi: ItunesApi
 
-    public fun getRetrofit(): ItunesApi {
+    override fun getApi(): ItunesApi {
 
         val okHttpClient = OkHttpClient()
         itunesApi = Retrofit.Builder()

@@ -16,10 +16,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +42,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initErrorViews() {
-        viewModel.internet_error_visible.observe(this, Observer {
+        viewModel.internetErrorVisible.observe(this, Observer {
             if (it == true) {
                 showSnackbar(R.string.internet_error)
             }
         })
-        viewModel.error_visible.observe(this, Observer {
+        viewModel.errorVisible.observe(this, Observer {
             if (it == true) {
                 showSnackbar(R.string.short_query_error)
             }
