@@ -9,7 +9,7 @@ interface ItunesApiService {
     fun getApi(): ItunesApi
 }
 
-class ItunesApiServiceImpl:ItunesApiService {
+class ItunesApiServiceImpl : ItunesApiService {
 
     private val BASE_URL = "https://itunes.apple.com/"
 

@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel(val api:ItunesApiService) : ViewModel(), SearchView.OnQueryTextListener {
+class MainViewModel(val api: ItunesApiService) : ViewModel(), SearchView.OnQueryTextListener {
 
     private val _trackList = MutableLiveData<List<Track>>()
     val trackList: LiveData<List<Track>> = _trackList

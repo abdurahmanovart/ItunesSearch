@@ -8,7 +8,6 @@ import ai.arturxdroid.itunessearch.ui.track.TRACK_EXTRA
 import ai.arturxdroid.itunessearch.ui.track.TrackActivity
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
